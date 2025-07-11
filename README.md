@@ -58,16 +58,36 @@
 - **Request Body:**
   ```json
   {
-    "idTag": "VID-USER-01"
+    "idTag": "VID-USER-01",
+    "connectorId": 1
   }
   ```
-  (If `idTag` is not provided, defaults to `"VID-USER-01"`.)
+  (If `idTag` or `connectorId` is not provided, defaults are used.)
 - **Response:**
   ```json
   {
-    "status": "StartTransaction sent for idTag: VID-USER-01"
+    "status": "StartTransaction sent for idTag: VID-USER-01 on connectorId: 1"
   }
   ```
-- **Description:** Sends a StartTransaction request for the given idTag.
+- **Description:** Sends a StartTransaction request for the given idTag and connectorId.
 
 ---
+
+### 5. Stop Transaction
+
+- **POST** `/stop-transaction`
+- **Request Body:**
+  ```json
+  {
+    "meterStop": 1000,
+    "idTag": "VID-USER-01"
+  }
+  ```
+  (`transactionId` is automatically fetched from CSMS after StartTransaction.)
+- **Response:**
+  ```json
+  {
+    "status": "StopTransaction sent for transactionId: <transactionId>"
+  }
+  ```
+- **Description:** Sends a StopTransaction request using the transactionId received from CSMS, with optional meterStop
